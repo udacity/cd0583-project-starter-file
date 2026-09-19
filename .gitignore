@@ -1,5 +1,19 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell
+# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell,video,audio
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell,video,audio
+
+### Audio ###
+*.aif
+*.iff
+*.m3u
+*.m4a
+*.mid
+*.mp3
+*.mpa
+*.ra
+*.wav
+*.wma
+*.ogg
+*.flac
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -249,8 +263,9 @@ cython_debug/
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
+# Finder icon metadata can end with a carriage return (a control character).
 Icon
+Icon[[:cntrl:]]
 
 
 # Thumbnails
@@ -488,6 +503,24 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+### Video ###
+*.3g2
+*.3gp
+*.asf
+*.asx
+*.avi
+*.flv
+*.mkv
+*.mov
+*.mp4
+*.mpg
+*.ogv
+*.rm
+*.swf
+*.vob
+*.wmv
+*.webm
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -588,4 +621,4 @@ zsdoc/data
 /tests/_output/*
 !/tests/_output/.gitkeep
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell
+# End of https://www.toptal.com/developers/gitignore/api/macos,windows,vim,git,emacs,visualstudiocode,pycharm,zsh,python,jupyternotebooks,flask,powershell,video,audio

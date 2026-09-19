@@ -39,8 +39,6 @@ python -m pip install -r requirements.txt
 python -m pip check
 ```
 
-**Windows checkout note:** the repository currently contains macOS metadata files named `Icon` followed by a carriage return. Native Windows checkout can fail on these paths; see [issue #8](https://github.com/udacity/cd0583-project-starter-file/issues/8). A Linux filesystem inside WSL or a Linux-based workspace avoids Windows filename restrictions.
-
 ## Repository layout
 
 | File or directory | Purpose |
