@@ -91,6 +91,18 @@ For the process-automation stage, follow the classroom instructions to switch `i
 
 These are implementation tasks, not features already provided by the templates. Generated models, scores, reports, API responses, and a completed cron job are intentionally absent from the starter.
 
+Calculate the mean, median, and standard deviation for each numeric column in the ingested dataset and return the results as a Python list. Calculate missing-value percentages for every column. Time ingestion and training, as specified by Step 3 and the rubric, without replacing the deployed model.
+
+Pass a model and a DataFrame explicitly to `score_model(model, dataframe, score_path=None)`. Step 4 reuses the Step 2 scorer without specifying a different model path; this starter keeps its deployed-model API contract explicit:
+
+| Context | Model | Evaluation data | Save a score? |
+| --- | --- | --- | --- |
+| Step 2 and replacement training | `output_model_path` | `test_data_path/testdata.csv` | `output_model_path/latestscore.txt` |
+| `/scoring` API | `prod_deployment_path` | `test_data_path/testdata.csv` | No |
+| Drift check | Same deployed model | Newly ingested data | No |
+
+Retrain only when the drift-check F1 score is lower than the deployed baseline. Score the replacement before deploying it so that its `latestscore.txt` belongs to that model. The prediction helper accepts a DataFrame; the API must load the dataset location supplied by its caller before invoking it.
+
 ### API development
 
 After implementing the required functions and creating the necessary data and model artifacts, start the development API from the repository root:
