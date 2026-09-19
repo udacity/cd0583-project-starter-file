@@ -19,8 +19,11 @@ test_data_path = os.path.join(config['test_data_path'])
 
 
 ################# Function for model scoring
-def score_model():
-    # This function should take a trained model, load test data,  and 
-    # calculate an F1 score for the model relative to the test data.
-    # It should write the result to the latestscore.txt file
+def score_model(model, dataframe, score_path=None):
+    # Calculate and return the supplied model's F1 score on the supplied DataFrame.
+    # Step 2: use the output_model_path model and test_data_path/testdata.csv.
+    # API: use the deployed model and test_data_path/testdata.csv.
+    # Drift check: use the same deployed model and newly ingested data.
+    # Write latestscore.txt only when score_path is supplied; API and drift checks
+    # must not overwrite the deployed baseline score.
 

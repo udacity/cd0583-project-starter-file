@@ -5,32 +5,40 @@ import diagnostics
 import reporting
 
 ################## Check and read new data
-# First, read ingestedfiles.txt
+# Read ingestedfiles.txt from prod_deployment_path.
 
-# Second, determine whether the source data folder has files that aren't listed
-# in ingestedfiles.txt
+# Compare the input_folder_path files with that deployed ingestion record.
+# For this stage, use sourcedata as input_folder_path and models as output_model_path.
 
 
 
 ################## Deciding whether to proceed, part 1
-# If you found new data, you should proceed. otherwise, do end the process here
+# If no new files are found, stop without training or deploying.
+# Otherwise, run ingestion to update the dataset and local ingestedfiles.txt.
 
 
 ################## Checking for model drift
-# Check whether the score from the deployed model is different from the score 
-# from the model that uses the newest ingested data
+# Read the baseline latestscore.txt and model from prod_deployment_path.
+# Score that SAME deployed model on the newly ingested data, before any training.
+# Pass the model and data explicitly to score_model; preserve the deployed baseline.
 
 
 ################## Deciding whether to proceed, part 2
-# If you found model drift, you should proceed. otherwise, do end the process here
+# Proceed only if the new F1 score is LOWER than the deployed baseline score.
+# If it is equal or higher, stop without training or deploying.
 
 
 
 ################## Re-deployment
-# If you found evidence for model drift, re-run the deployment.py script
+# Train a replacement model on the newly ingested data only after detecting drift.
+# Score the replacement on test_data_path/testdata.csv, saving latestscore.txt
+# under output_model_path. Deploy the replacement model, its new score, and the
+# updated ingestedfiles.txt together by running deployment.py.
 
 ################## Diagnostics and reporting
-# Run diagnostics.py and reporting.py for the re-deployed model
+# Run reporting.py for the newly deployed model and save confusionmatrix2.png.
+# With the API running, run apicalls.py to make real HTTP requests to all four
+# endpoints and save their combined responses as apireturns2.txt.
 
 
 
