@@ -249,8 +249,9 @@ cython_debug/
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
+# Finder icon metadata can end with a carriage return (a control character).
 Icon
+Icon[[:cntrl:]]
 
 
 # Thumbnails
