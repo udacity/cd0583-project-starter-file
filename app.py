@@ -2,9 +2,6 @@ from flask import Flask, session, jsonify, request
 import pandas as pd
 import numpy as np
 import pickle
-import create_prediction_model
-import diagnosis 
-import predict_exited_from_saved_model
 import json
 import os
 
@@ -30,19 +27,19 @@ def predict():
 
 ####################### Scoring Endpoint
 @app.route("/scoring", methods=['GET','OPTIONS'])
-def stats():        
+def scoring_endpoint():
     # Check the score of the deployed model
     return # Add return value (a single F1 score number)
 
 ####################### Summary Statistics Endpoint
 @app.route("/summarystats", methods=['GET','OPTIONS'])
-def stats():        
+def summarystats_endpoint():
     # Check means, medians, and modes for each column
     return # Return a list of all calculated summary statistics
 
 ####################### Diagnostics Endpoint
 @app.route("/diagnostics", methods=['GET','OPTIONS'])
-def stats():        
+def diagnostics_endpoint():
     # Check timing and percent NA values
     return # Add return value for all diagnostics
 
