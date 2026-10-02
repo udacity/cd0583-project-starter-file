@@ -1,0 +1,9 @@
+corporation,lastmonth_activity,lastyear_activity,number_of_employees,exited
+stable01,0,25,40,1
+stable02,5,80,60,1
+stable03,10,100,80,1
+stable04,0,50,100,1
+stable05,900,2500,2,0
+stable06,1000,3000,3,0
+stable07,1200,3500,4,0
+stable08,1500,4000,5,0

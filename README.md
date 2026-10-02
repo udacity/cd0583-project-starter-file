@@ -122,6 +122,24 @@ The template uses port **8000**. In a second terminal using the same Python envi
 
 The initial endpoint bodies do not return usable responses. Keep the model and data used by each endpoint consistent with the classroom requirements. The included Flask debug server is for development.
 
+## Validate the automation branches
+
+`validation_data/no_drift/no_drift.csv` and `validation_data/drift/drift.csv` are synthetic fixtures for checking control flow, not realistic performance benchmarks. Each contains eight unique rows and both target classes. They share feature values but deliberately use opposite labels. Keep them separate from `practicedata`, `sourcedata`, and `testdata`; do not ingest the entire `validation_data` tree.
+
+Before each scenario, use an independent project copy and complete Steps 1–4 with the original practice configuration. Train on all 26 deduplicated practice rows, use the three specified features and the Logistic Regression settings in `training.py`, and score on the unchanged `testdata/testdata.csv`. Deploy that model, its score, and the practice ingestion record. Preserve these initial artifacts; do not carry a scenario's replacement model or ingestion record into another scenario.
+
+Then set `input_folder_path` as shown below, set `output_model_path` to `models`, and run your completed `fullprocess.py` with the API running from the same project root.
+
+| Scenario / `input_folder_path` | Initial model F1 on scenario data | Expected behavior |
+| --- | --- | --- |
+| No new data / `practicedata` | Not evaluated | Stop; no retraining, deployment, or second reports. |
+| No drift / `validation_data/no_drift` | 1.0 | Keep the deployed model and baseline; generate both second reports. |
+| Drift / `validation_data/drift` | 0.0 | Retrain, score the replacement on test data, deploy, then generate both second reports. |
+
+The initial test-data baseline is approximately **0.5714**. These values were checked with Python 3.13.15 and scikit-learn 1.8.0 on macOS ARM64; they assume the initial model described above. A different model or preprocessing may change the comparison. Do not edit the baseline score to force a branch. In the drift scenario, 0.0 is the initial deployed model's score on the fixture, not the replacement model's test score.
+
+Check that each new-data scenario creates `confusionmatrix2.png` and `apireturns2.txt` and preserves the first-run reports. In the no-drift scenario, also confirm that the deployed model and baseline score remain unchanged. Restore the classroom configuration (`sourcedata` and `models`) for the final project run.
+
 ## Submission
 
 Use the classroom rubric as the final checklist. Submit the required scripts and generated outputs in a ZIP, including both report pairs (`confusionmatrix.png` / `apireturns.txt` and `confusionmatrix2.png` / `apireturns2.txt`) and `cronjob.txt`. The second pair is required after new-data processing even without drift. The starter repository itself is not a completed submission.

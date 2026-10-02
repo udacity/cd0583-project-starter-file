@@ -1,0 +1,9 @@
+corporation,lastmonth_activity,lastyear_activity,number_of_employees,exited
+shift01,0,25,40,0
+shift02,5,80,60,0
+shift03,10,100,80,0
+shift04,0,50,100,0
+shift05,900,2500,2,1
+shift06,1000,3000,3,1
+shift07,1200,3500,4,1
+shift08,1500,4000,5,1
