@@ -13,7 +13,7 @@ import reporting
 
 
 ################## Deciding whether to proceed, part 1
-# If no new files are found, stop without training or deploying.
+# If no new files are found, stop before drift checking or reporting.
 # Otherwise, run ingestion to update the dataset and local ingestedfiles.txt.
 
 
@@ -24,8 +24,9 @@ import reporting
 
 
 ################## Deciding whether to proceed, part 2
-# Proceed only if the new F1 score is LOWER than the deployed baseline score.
-# If it is equal or higher, stop without training or deploying.
+# Retrain and redeploy only if the new F1 score is LOWER than the baseline.
+# If it is equal or higher, keep the deployed model and baseline unchanged,
+# skip re-deployment, and continue to diagnostics and reporting.
 
 
 
@@ -36,10 +37,14 @@ import reporting
 # updated ingestedfiles.txt together by running deployment.py.
 
 ################## Diagnostics and reporting
-# Run reporting.py for the newly deployed model and save confusionmatrix2.png.
+# After processing new data, report in both drift and no-drift cases.
+# Complete any re-deployment first, then use the current deployed model.
+# Run reporting.py on the configured test data and save confusionmatrix2.png.
 # With the API running, run apicalls.py to make real HTTP requests to all four
 # endpoints and save their combined responses as apireturns2.txt.
-
+# Preserve confusionmatrix.png and apireturns.txt from the first run.
+# Unchanged model/test data may produce the same predictions, score, and matrix;
+# timing and dependency results may vary. Do not force retraining for new reports.
 
 
 
