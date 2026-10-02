@@ -85,13 +85,13 @@ For the process-automation stage, follow the classroom instructions to switch `i
 2. **Training, scoring, and deployment:** train and evaluate a model, then deploy it with its score and ingestion records.
 3. **Diagnostics:** implement prediction, data-quality, timing, and dependency checks.
 4. **Reporting and API:** generate a confusion-matrix report, implement the endpoints below, and save their combined responses.
-5. **Process automation:** check for new data, evaluate the deployed model on newly ingested data, and retrain and redeploy only when model drift requires it. Configure the required cron job according to the classroom instructions.
+5. **Process automation:** stop if there is no new data. Otherwise, ingest and check for drift, retrain and redeploy only when needed, then generate reports using the current deployed model in either case. Configure the required cron job according to the classroom instructions.
 
 These are implementation tasks, not features already provided by the templates. Generated models, scores, reports, API responses, and a completed cron job are intentionally absent from the starter.
 
 Calculate the mean, median, and standard deviation for each numeric column in the ingested dataset and return the results as a Python list. Calculate missing-value percentages for every column. Time ingestion and training, as specified by Step 3 and the rubric, without replacing the deployed model.
 
-Pass a model and a DataFrame explicitly to `score_model(model, dataframe, score_path=None)`. Step 4 reuses the Step 2 scorer without specifying a different model path; this starter keeps its deployed-model API contract explicit:
+Pass a model and a DataFrame explicitly to `score_model(model, dataframe, score_path=None)`. Use the following model, data, and score-saving behavior in each context:
 
 | Context | Model | Evaluation data | Save a score? |
 | --- | --- | --- | --- |
@@ -100,6 +100,8 @@ Pass a model and a DataFrame explicitly to `score_model(model, dataframe, score_
 | Drift check | Same deployed model | Newly ingested data | No |
 
 Retrain only when the drift-check F1 score is lower than the deployed baseline. Score the replacement before deploying it so that its `latestscore.txt` belongs to that model. The prediction helper accepts a DataFrame; the API must load the dataset location supplied by its caller before invoking it.
+
+After processing new data, run reporting and API calls whether or not drift occurred, completing any redeployment first. Use the current deployed model and configured test data for the confusion matrix and API score. Save `confusionmatrix2.png` and `apireturns2.txt` while preserving the first-run files. Without drift, keep the deployed model and baseline score unchanged; identical predictions, scores, and confusion matrices are valid when the model and test data are unchanged. Timing and dependency results may vary. Do not force retraining or alter the baseline to produce different reports.
 
 ### API development
 
@@ -122,7 +124,7 @@ The initial endpoint bodies do not return usable responses. Keep the model and d
 
 ## Submission
 
-Use the classroom rubric as the final checklist. Submit the required scripts and generated outputs in a ZIP, including the reports and cron-job record required by the project. The starter repository itself is not a completed submission.
+Use the classroom rubric as the final checklist. Submit the required scripts and generated outputs in a ZIP, including both report pairs (`confusionmatrix.png` / `apireturns.txt` and `confusionmatrix2.png` / `apireturns2.txt`) and `cronjob.txt`. The second pair is required after new-data processing even without drift. The starter repository itself is not a completed submission.
 
 ## License
 
